@@ -1,4 +1,5 @@
 import React from 'react'
+import ProductItem from './ProductItem'
 
 const Products = () => {
   return (
@@ -8,7 +9,10 @@ const Products = () => {
       <button className="btn btn-outline-success" type="submit">Search</button>
     </form>
 
-    
+    <div className='row mt-5'>
+      
+      <ProductItem/>
+    </div>
     
 
 
