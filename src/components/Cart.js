@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import CartItem from './CartItem'
-
+import SummaryCart from './SummaryCart'
 const Cart = () => {
    const[carts, setCarts]= useState([])
 
@@ -20,6 +20,15 @@ const Cart = () => {
             {renderCarts}
           </tbody>
         </table>
+        <div>
+          <table className="table table-success ">
+          
+          <tbody>
+            <SummaryCart/>
+          </tbody>
+        </table>
+        <button>Proceed to checkout</button>
+        </div>
     
 
     </div>
