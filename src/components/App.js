@@ -9,6 +9,7 @@ import Team from './Team';
 import Signin from './Signin';
 import Footer from './Footer'
 import ForgotPassword from './ForgotPassword';
+import Products from './Products';
 
 function App() {
   return (
@@ -20,9 +21,9 @@ function App() {
         <Route path='/forgotpassword' element={<ForgotPassword/>}>Forgot Password</Route>
         <Route path='/signin' element={<Signin/>}>Sign in</Route>
         <Route path='/login' element={<Login/>}>Log in</Route>
-        <Route path='/' element={<Home/>}>Log in</Route>
-        <Route path='/about' element={<About/>}>Log in</Route>
-        <Route path='/team' element={<Team/>}>Log in</Route>
+        <Route path='/about' element={<About/>}>About</Route>
+        <Route path='/team' element={<Team/>}>Team</Route>
+        <Route path='/products' element={<Products/>}>Products</Route>
 
       </Routes>
       <Footer/>
