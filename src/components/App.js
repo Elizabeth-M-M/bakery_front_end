@@ -12,6 +12,7 @@ import Footer from './Footer'
 import ForgotPassword from './ForgotPassword';
 import Products from './Products';
 import ProductItemOne from './ProductItemOne'
+import Cart from './Cart';
 
 function App() {
   const[products, setProducts]= useState([])
@@ -30,6 +31,7 @@ function App() {
         <Route path='/login' element={<Login/>}>Log in</Route>
         <Route path='/about' element={<About/>}>About</Route>
         <Route path='/team' element={<Team/>}>Team</Route>
+        <Route path='/cart' element={<Cart/>}>Team</Route>
         <Route path='/products' element={<Products products={products}/>}>Products</Route>
         <Route path='/products/:productId' element={<ProductItemOne products={products}/>}>Products</Route>
         {/* <Route path="products" element={<Products/>}>
