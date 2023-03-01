@@ -1,5 +1,6 @@
 import './App.css';
 import { Routes, Route} from "react-router-dom";
+import React, {useState, useEffect} from 'react'
 import Login from './Login';
 import Signup from './Signup';
 import Home from './Home';
@@ -10,8 +11,14 @@ import Signin from './Signin';
 import Footer from './Footer'
 import ForgotPassword from './ForgotPassword';
 import Products from './Products';
+import ProductItemOne from './ProductItemOne'
 
 function App() {
+  const[products, setProducts]= useState([])
+  
+  useEffect(() => {
+    fetch('http://localhost:9292/products').then(r=>r.json()).then(data=>setProducts(data))
+  }, []);
   return (
     <div >
       <Navbar/>
@@ -23,7 +30,12 @@ function App() {
         <Route path='/login' element={<Login/>}>Log in</Route>
         <Route path='/about' element={<About/>}>About</Route>
         <Route path='/team' element={<Team/>}>Team</Route>
-        <Route path='/products' element={<Products/>}>Products</Route>
+        <Route path='/products' element={<Products products={products}/>}>Products</Route>
+        <Route path='/products/:productId' element={<ProductItemOne products={products}/>}>Products</Route>
+        {/* <Route path="products" element={<Products/>}>
+        <Route path="/products/:productId" element={<ProductItemOne/>} />
+        
+      </Route> */}
 
       </Routes>
       <Footer/>
