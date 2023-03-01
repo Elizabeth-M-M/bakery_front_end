@@ -55,7 +55,12 @@
 .thumbnail {
   display: flex
 }
-
+.shop-cart img{
+  width: 20%;
+  height: 20%;
+  margin: 20px;
+  padding: 0;
+}
 
 @keyframes App-logo-spin {
   from {
