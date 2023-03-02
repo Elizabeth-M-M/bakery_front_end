@@ -21,15 +21,17 @@ const About = () => {
                 baking everything fresh daily. Whether you're looking for a
                 morning pastry or a decadent dessert, we have a wide variety of
                 options to choose from.
-              </p>            
+              </p>
             </div>
           </div>
         </div>
-      </section>    
+      </section>
 
       <section className="p-5" id="faqs">
         <div className="container">
-          <h2 className='display-6 text-center theme-color pb-2'>Frequently Asked Questions</h2>
+          <h2 className="display-6 text-center theme-color pb-2">
+            Frequently Asked Questions
+          </h2>
 
           <div className="accordion accordion-flush">
             <div className="accordion-item">
@@ -43,9 +45,11 @@ const About = () => {
                 </button>
               </div>
               <div className="collapse accordion-body" id="question-1">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit
-                animi id doloremque numquam minima omnis sequi fuga quisquam
-                distinctio facilis.
+                We offer a wide range of options to suit any taste or dietary
+                need, including vegan and gluten-free options. So why not treat
+                yourself or someone special to a sweet and satisfying
+                experience? Come visit us today and indulge in the mouthwatering
+                delights that our bakery has to offer.
               </div>
             </div>
           </div>
@@ -62,9 +66,7 @@ const About = () => {
                 </button>
               </div>
               <div className="collapse accordion-body" id="question-2">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit
-                animi id doloremque numquam minima omnis sequi fuga quisquam
-                distinctio facilis.
+                It depends. Call us on the contact below for a more detailed time range.
               </div>
             </div>
           </div>
@@ -81,9 +83,7 @@ const About = () => {
                 </button>
               </div>
               <div className="collapse accordion-body" id="question-3">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit
-                animi id doloremque numquam minima omnis sequi fuga quisquam
-                distinctio facilis.
+                Some. We will create a special page just to display readily available cakes.
               </div>
             </div>
           </div>
@@ -100,9 +100,7 @@ const About = () => {
                 </button>
               </div>
               <div className="collapse accordion-body" id="question-4">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit
-                animi id doloremque numquam minima omnis sequi fuga quisquam
-                distinctio facilis.
+                At Sarit Centre, Nairobi. Feel free to stop by any time.
               </div>
             </div>
           </div>
@@ -113,7 +111,9 @@ const About = () => {
         <div className="container">
           <div className="row g-4">
             <div className="col-md">
-              <h2 className="text-center mb-4 display-6 theme-color">Contact Info</h2>
+              <h2 className="text-center mb-4 display-6 theme-color">
+                Contact Info
+              </h2>
               <ul className="list-group list-group-flush">
                 <li className="list-group-item">
                   <span className="fw-bold">Main Location:</span> Sarit Centre,
@@ -129,7 +129,6 @@ const About = () => {
                 </li>
               </ul>
             </div>
-            
           </div>
         </div>
       </section>

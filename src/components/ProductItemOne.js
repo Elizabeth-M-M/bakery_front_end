@@ -6,22 +6,28 @@ const ProductItemOne = ({products, user, addCart}) => {
   let { productId } = useParams();
   // const{id, name, description, price, image}= products[productId-1]
   let chosen=products[productId-1]
+  console.log(user)
   function handleCartAdd(){
-    fetch("http://localhost:9292/carts", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        user_id: user.id,
-        product_id: chosen.id
-      }),
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        addCart(data)
-         navigator('/cart')
-      });
+    if(user==''){
+      navigator('/signin')
+    }else{
+fetch("http://localhost:9292/carts", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    user_id: user.id,
+    product_id: chosen.id,
+  }),
+})
+  .then((r) => r.json())
+  .then((data) => {
+    addCart(data);
+    navigator("/cart");
+  });
+    }
+    
   }
 
    
