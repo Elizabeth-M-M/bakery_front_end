@@ -3,7 +3,7 @@ import CartItem from "./CartItem";
 
 import { useNavigate } from "react-router-dom";
 
-const Cart = ({ carts, user, handleCarts }) => {
+const Cart = ({ carts, user, handleCarts, handleDeletedCart, addCart }) => {
   const navigator = useNavigate();
   const [sum, setSum] = useState(0);
   const [userId, setUserId] = useState(user.id);
@@ -12,26 +12,17 @@ const Cart = ({ carts, user, handleCarts }) => {
     telephone_no: "",
     location: "",
   });
-  //  console.log(userId)
-  //  let id= user.id
-  //   useEffect(() => {
-  //     fetch(`http://localhost:9292/carts/sum/${id}`).then(r=>r.json()).then(data=>console.log(data)
-  //   ), []});
-  // console.log(user.id)
-  // useEffect(() => {
-  //   fetch(`http://localhost:9292/carts/sum/4`).then(r=>r.json()).then(data=>setSum(data.sum))
-  // }, []);
+
   useEffect(() => {
     if (userId !== undefined) {
       fetch(`http://localhost:9292/carts/sum/${userId}`)
         .then((r) => r.json())
         .then((data) => {
-          if(carts==[]){
-            setSum(0)
-          }else{
+          if (carts == []) {
+            setSum(0);
+          } else {
             setSum(data.sum);
           }
-          
         });
     }
   }, [carts]);
@@ -44,37 +35,44 @@ const Cart = ({ carts, user, handleCarts }) => {
       [name]: value,
     });
   }
-  console.log(carts)
+  console.log(carts);
 
   function handleSubmit() {
     // onAddData(AddUserFormData);
-   
+
     fetch(`http://localhost:9292/user/${userId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        agree_to_pay:AddUserFormData.agree_to_pay,
-    telephone_no:AddUserFormData.telephone_no,
-    location:AddUserFormData.location
+        agree_to_pay: AddUserFormData.agree_to_pay,
+        telephone_no: AddUserFormData.telephone_no,
+        location: AddUserFormData.location,
       }),
     })
       .then((r) => r.json())
       .then((data) => console.log(data));
 
-      setFormData({
-      agree_to_pay:'',
-      telephone_no:'',
-      location:''
+    setFormData({
+      agree_to_pay: "",
+      telephone_no: "",
+      location: "",
     });
-    handleCarts([])
+    handleCarts([]);
     // setSum(0)
-    navigator('/')
+    navigator("/");
   }
 
   const renderCarts = Object.keys(carts).map((cartID) => (
-    <CartItem key={cartID} product={carts[cartID].product} />
+    <CartItem
+      key={cartID}
+      cartId={carts[cartID].id}
+      product={carts[cartID].product}
+      handleDeletedCart={handleDeletedCart}
+      user={user}
+      addCart={addCart}
+    />
   ));
   // console.log(sum)
 

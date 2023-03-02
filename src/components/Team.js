@@ -5,11 +5,11 @@ const Team = () => {
     <section className="p-5 text-center">
       <div className="container">
         <h1>Our Artisans</h1>
-        <p className='py-sm-4 py-2'>
-          Our friendly staff is always here to assist you with any questions you
-          may have, and we take pride in providing a welcoming atmosphere for
-          all of our customers. Thank you for choosing our bakery, and we look
-          forward to serving you soon!
+        <p className="py-sm-4 py-2">
+          Our skilled bakers use only the finest ingredients to craft each of
+          our delectable treats, ensuring that every bite is bursting with
+          flavor. We take pride in the quality of our products, and strive to
+          exceed your expectations with every order.
         </p>
         <div className="row text-dark g-3">
           <div className="col-md-6 col-lg-3">
@@ -23,7 +23,6 @@ const Team = () => {
                 </div>
                 <h3 className="card-title mt-3">Elissa Mila</h3>
                 <p className="font-italic">Lead Baker</p>
-                
               </div>
             </div>
           </div>
@@ -40,7 +39,6 @@ const Team = () => {
 
                 <h3 className="card-title mt-3">Micheal Kamau</h3>
                 <p className="font-italic">Pastry Chef</p>
-                
               </div>
             </div>
           </div>
@@ -56,7 +54,6 @@ const Team = () => {
                 </div>
                 <h3 className="card-title mt-3">Milly Mukami</h3>
                 <p className="font-italic">Cake Decorator</p>
-                
               </div>
             </div>
           </div>
@@ -71,7 +68,6 @@ const Team = () => {
                 </div>
                 <h3 className="card-title mt-3">Benson Jenta</h3>
                 <p className="font-italic">Bakery Manager</p>
-                
               </div>
             </div>
           </div>

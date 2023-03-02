@@ -34,7 +34,9 @@ const Navbar = ({user, onSetUser, handleLogIn}) => {
           )}
           {/* <a href="#"><Link to="/login">message</Link></a> */}
           <a href="#">
-            <Link to="/cart">Cart</Link>
+            <Link to="/cart">
+              <i class="bi bi-cart4 h4"></i>
+            </Link>
           </a>
         </div>
         <div className="collapse navbar-collapse" id="navMenu">

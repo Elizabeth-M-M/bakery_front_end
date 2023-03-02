@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { Link, useNavigate } from "react-router-dom";
 
-const Signin = ({handleUser}) => {
+const Signin = ({handleUserId}) => {
   const navigator= useNavigate()
   const [signInFormData, setFormData]=useState({
     email:'',
@@ -19,7 +19,7 @@ const Signin = ({handleUser}) => {
   }
   // console.log(signInFormData);
   function handleSubmit(event){
-    console.log(signInFormData)
+    // console.log(signInFormData)
     event.preventDefault();
     // onAddData(signInFormData);
     fetch("http://localhost:9292/user", {
@@ -34,7 +34,7 @@ const Signin = ({handleUser}) => {
     })
       .then((r) => r.json())
       .then((user) => {
-        handleUser(user);
+        handleUserId(user.id);
       });
       setFormData({
       email:'',

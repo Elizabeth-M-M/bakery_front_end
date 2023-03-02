@@ -18,10 +18,10 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [products, setProducts] = useState([]);
   const [user, setUser] = useState("");
-  const [userId, setUserId] = useState("");
+  const [userId, setUserId] = useState(0);
   // const[sessionId, setSessionId]= useState(1)
   const [carts, setCarts] = useState([]);
-
+console.log(userId)
   useEffect(() => {
     fetch(`http://localhost:9292/user/${userId}`)
       .then((r) => r.json())
@@ -44,16 +44,11 @@ function App() {
   function onAddCart(data) {
     setCarts([...carts, data]);
   }
-  // useEffect(() => {
-  //   const data = window.localStorage.getItem("sessionUser");
-  //   if (data !== null) {
-  //     setUserId(JSON.parse(data));
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   window.localStorage.setItem("sessionUser", JSON.stringify(userId));
-  // }, [userId]);
+  function deleteCart(id){
+   let newOnes = carts.filter((cart) => cart.id !== id);
+  //  console.log(id)
+   setCarts(newOnes)
+  }
 console.log(userId)
   return (
     <div className="bg-theme">
@@ -74,7 +69,7 @@ console.log(userId)
         <Route path="/forgotpassword" element={<ForgotPassword />}>
           Forgot Password
         </Route>
-        <Route path="/signin" element={<Signin handleUser={setUser} />}>
+        <Route path="/signin" element={<Signin handleUserId={setUserId} />}>
           Sign in
         </Route>
         <Route path="/login" element={<Login handleUser={setUserId} />}>
@@ -88,7 +83,15 @@ console.log(userId)
         </Route>
         <Route
           path="/cart"
-          element={<Cart carts={carts} user={user} handleCarts={setCarts} />}
+          element={
+            <Cart
+              carts={carts}
+              user={user}
+              handleCarts={setCarts}
+              handleDeletedCart={deleteCart}
+              addCart={onAddCart}
+            />
+          }
         >
           Team
         </Route>
