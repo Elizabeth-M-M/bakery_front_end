@@ -1,31 +1,49 @@
 import React from 'react'
 import {useNavigate } from "react-router-dom";
 
-const Home = () => {
+const Home = ({username, isLoggedIn}) => {
   const navigator= useNavigate()
   function handleTaste(){
     navigator("/products")
   }
+  // console.log(isLoggedIn)
 
   return (
     <>
-    <section className="p-5 text-center text-sm-start">
-      <div className="container">
-        <div className="d-sm-flex align-items-center justify-content-between">
-          <div className="me-0 me-sm-5">
-            <h2>Slice of Heaven</h2>
-            <p className="my-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus ad itaque corporis nisi nihil ipsa magnam debitis voluptates fugit unde.</p>
-            <button onClick={handleTaste}
-            className='btn btn-warning'>Taste</button>
-          </div >
-          <div>
-            <img src="https://images.pexels.com/photos/2510104/pexels-photo-2510104.jpeg?auto=compress&cs=tinysrgb&w=600" className="img-fluid w-75 d-none d-sm-block" alt="cake-sample"/>
+      <section className="pt-2 text-center text-sm-start container">
+        <p className='theme-color'>{isLoggedIn ? `Welcome ${username}` : null}</p>
+        <div>
+          <div className="row">
+            <div className="col-12 col-sm-5 me-0 me-sm-5 mb-5 mb-sm-0 text-center">
+              <h2 className="display-2 lh-1 mt-sm-5 mt-0 theme-color">Slice of Heaven</h2>
+              {/* <div className="image-title">
+                <img
+                  src={require("../images/logo.png")}
+                  className="img-fluid"
+                  alt="cake-sample"
+                />
+              </div> */}
+              <p className="my-4 lh-4">
+                Welcome to our bakery! We are so glad you stopped by to explore
+                our delicious selection of baked goods. From fresh bread to
+                sweet treats, we have something for everyone to enjoy.
+              </p>
+              <button onClick={handleTaste} className="btn-style">
+                Taste
+              </button>
+            </div>
+            <div className="col-12 col-sm-5 header-image">
+              <img
+                src={require("../images/cake4.png")}
+                className="img-fluid"
+                alt="cake-sample"
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
     </>
-  )
+  );
 }
 
 export default Home

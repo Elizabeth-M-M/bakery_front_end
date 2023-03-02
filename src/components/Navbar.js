@@ -1,14 +1,42 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({user, onSetUser, handleLogIn}) => {
+  
+  function handleLogOut(){
+    onSetUser('')
+    handleLogIn(false)
+  }
+
   return (
     <nav className="navbar navbar-expand-lg" id="navtitle">
       <div className="container">
-        <a href="#" className="navbar-brand">Slice of Heaven</a>
-        <button className="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <button
+          className="navbar-toggler"
+          data-bs-toggle="collapse"
+          data-bs-target="#navMenu"
+        >
           <span className="navbar-toggler-icon"></span>
         </button>
+        <h4 href="#" className="theme-color me-3">
+          So H
+        </h4>
+        <div className="loginb">
+          {user == "" ? (
+            <a href="/">
+              <Link to="/login">Log In</Link>
+            </a>
+          ) : (
+            <a href="#" onClick={handleLogOut}>
+              {" "}
+              Log out
+            </a>
+          )}
+          {/* <a href="#"><Link to="/login">message</Link></a> */}
+          <a href="#">
+            <Link to="/cart">Cart</Link>
+          </a>
+        </div>
         <div className="collapse navbar-collapse" id="navMenu">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
@@ -25,11 +53,9 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <a href="#"><Link to="/login">Login</Link></a>
-        <a href="#"><Link to="/cart">Cart</Link></a>
       </div>
     </nav>
-  )
+  );
 }
 
 export default Navbar

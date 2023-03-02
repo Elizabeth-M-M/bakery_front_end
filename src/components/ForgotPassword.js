@@ -30,11 +30,11 @@ const ForgotPassword = () => {
       <div className="col-6 m-auto mt-5">
         <form className="row g-3" onSubmit={handleSubmit} > 
           <div className="col-md-6">
-            <label htmlFor="email" className="form-label">Email</label>
+            <label htmlhtmlFor="email" className="form-label">Email</label>
             <input type="email" className="form-control" id="email" onChange={handleInputs} name="email" value={forgotPasswordFormData.email}/>
           </div>
           <div className="col-12">
-            <label htmlFor="secret-key" className="form-label">Secret question: What is your mother's last name?</label>
+            <label htmlhtmlFor="secret-key" className="form-label">Secret question: What is your mother's last name?</label>
             <input type="text" className="form-control" id="secret_key" onChange={handleInputs} name="secret_key" value={forgotPasswordFormData.secret_key}/>
           </div>
           <div className="col-12">

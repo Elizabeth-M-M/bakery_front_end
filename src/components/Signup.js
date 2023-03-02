@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const Signup = () => {
+const Signup = ({handleUser}) => {
+  const navigator = useNavigate()
   const [signUpFormData, setFormData]=useState({
     name:'',
     username:'',
@@ -18,10 +19,24 @@ const Signup = () => {
     })
     
   }
-  console.log(signUpFormData);
+  // console.log(signUpFormData);
   function handleSubmit(event){
     event.preventDefault();
     // onAddData(signUpFormData);
+   
+    fetch("http://localhost:9292/usersession", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(signUpFormData),
+    })
+      .then((r) => r.json())
+      .then((user) => {
+        handleUser(user.id)       
+        
+      });
+      
     setFormData({
     name:'',
     username:'',
@@ -29,6 +44,7 @@ const Signup = () => {
     password:'',
     secret_key:''
   });
+  navigator('/')
   }
 
   return (
@@ -38,23 +54,23 @@ const Signup = () => {
       <div className="col-6 m-auto mt-5">
         <form className="row g-3" onSubmit={handleSubmit} >
           <div className="col-md-6">
-            <label htmlFor="username" className="form-label">Username</label>
+            <label htmlhtmlFor="username" className="form-label">Name</label>
             <input type="text" className="form-control" id="name" onChange={handleInputs} name="name" value={signUpFormData.name}/>
           </div>
           <div className="col-md-6">
-            <label htmlFor="username" className="form-label">Username</label>
+            <label htmlhtmlFor="username" className="form-label">Username</label>
             <input type="text" className="form-control" id="username" onChange={handleInputs} name="username" value={signUpFormData.username}/>
           </div>
           <div className="col-md-6">
-            <label htmlFor="email" className="form-label">Email</label>
+            <label htmlhtmlFor="email" className="form-label">Email</label>
             <input type="email" className="form-control" id="email" onChange={handleInputs} name="email" value={signUpFormData.email}/>
           </div>
           <div className="col-md-6">
-            <label htmlFor="password" className="form-label">Password</label>
+            <label htmlhtmlFor="password" className="form-label">Password</label>
             <input type="password" className="form-control" id="password" onChange={handleInputs} name="password" value={signUpFormData.password}/>
           </div>
           <div className="col-12">
-            <label htmlFor="secret-key" className="form-label">Secret question: What is your mother's last name?</label>
+            <label htmlhtmlFor="secret-key" className="form-label">Secret question: What is your mother's last name?</label>
             <input type="text" className="form-control" id="secret_key" placeholder="Make sure not to forget" onChange={handleInputs} name="secret_key" value={signUpFormData.secret_key}/>
           </div>
           <Link to="/signin">Already have an account?</Link>

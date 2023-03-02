@@ -8,13 +8,13 @@ const Products = ({products}) => {
   return (
     <>
     <div className='container'>
-      <form className="d-flex col-12 col-md-6" role="search">
+      {/* <form className="d-flex col-12 col-md-6" role="search">
         <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button className="btn btn-outline-success" type="submit">Search</button>
-      </form>
+        <button className="btn-style" type="submit">Search</button>
+      </form> */}
 
       <div className='row mt-5'>
-        {products.map((product) => <ProductItem product={product}/>)}
+        {products.map((product) => <ProductItem key={product.id} product={product}/>)}
       </div>
     </div>
 

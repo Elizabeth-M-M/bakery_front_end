@@ -2,7 +2,7 @@ import React from 'react'
 
 const CartItem = ({product}) => {
    const{id, name, description, price, image}=product
-  console.log(name)
+  // console.log(name)
   function handleDelete(){
     // onDelete(id)
     // console.log(id)

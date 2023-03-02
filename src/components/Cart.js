@@ -1,38 +1,230 @@
-import React, {useState, useEffect} from 'react'
-import CartItem from './CartItem'
-import SummaryCart from './SummaryCart'
-const Cart = () => {
-   const[carts, setCarts]= useState([])
+import React, { useState, useEffect } from "react";
+import CartItem from "./CartItem";
 
+import { useNavigate } from "react-router-dom";
+
+const Cart = ({ carts, user, handleCarts }) => {
+  const navigator = useNavigate();
+  const [sum, setSum] = useState(0);
+  const [userId, setUserId] = useState(user.id);
+  const [AddUserFormData, setFormData] = useState({
+    agree_to_pay: "",
+    telephone_no: "",
+    location: "",
+  });
+  //  console.log(userId)
+  //  let id= user.id
+  //   useEffect(() => {
+  //     fetch(`http://localhost:9292/carts/sum/${id}`).then(r=>r.json()).then(data=>console.log(data)
+  //   ), []});
+  // console.log(user.id)
+  // useEffect(() => {
+  //   fetch(`http://localhost:9292/carts/sum/4`).then(r=>r.json()).then(data=>setSum(data.sum))
+  // }, []);
   useEffect(() => {
-    fetch('http://localhost:9292/carts').then(r=>r.json()).then(data=>setCarts(data))
-  }, []);
- 
-  const renderCarts = Object.keys(carts).map((cartID) => <CartItem product={carts[cartID].product}/>)
- 
+    if (userId !== undefined) {
+      fetch(`http://localhost:9292/carts/sum/${userId}`)
+        .then((r) => r.json())
+        .then((data) => {
+          if(carts==[]){
+            setSum(0)
+          }else{
+            setSum(data.sum);
+          }
+          
+        });
+    }
+  }, [carts]);
+
+  function handleInputs(event) {
+    const name = event.target.name;
+    const value = event.target.value;
+    setFormData({
+      ...AddUserFormData,
+      [name]: value,
+    });
+  }
+  console.log(carts)
+
+  function handleSubmit() {
+    // onAddData(AddUserFormData);
+   
+    fetch(`http://localhost:9292/user/${userId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        agree_to_pay:AddUserFormData.agree_to_pay,
+    telephone_no:AddUserFormData.telephone_no,
+    location:AddUserFormData.location
+      }),
+    })
+      .then((r) => r.json())
+      .then((data) => console.log(data));
+
+      setFormData({
+      agree_to_pay:'',
+      telephone_no:'',
+      location:''
+    });
+    handleCarts([])
+    // setSum(0)
+    navigator('/')
+  }
+
+  const renderCarts = Object.keys(carts).map((cartID) => (
+    <CartItem key={cartID} product={carts[cartID].product} />
+  ));
+  // console.log(sum)
+
   return (
-    <div className='container'>
-      <h4 className='my-5'>Shopping Cart</h4>
-      
-      <table className="table table-success ">
-          
+    <div className="container">
+      <h4 className="my-5 text-center theme-color">Shopping Cart</h4>
+
+      <table className="table bg-content">
+        <tbody>{renderCarts}</tbody>
+      </table>
+      <div className="w-50 m-auto">
+        <table className="table ">
           <tbody>
-            {renderCarts}
+            <tr>
+              <td>subtotal</td>
+              <td>{sum}</td>
+            </tr>
+            <tr>
+              <td>shipping</td>
+              <td>500</td>
+            </tr>
+            <tr>
+              <td>Total</td>
+              <td>{sum + 500}</td>
+            </tr>
           </tbody>
         </table>
-        <div>
-          <table className="table table-success ">
-          
-          <tbody>
-            <SummaryCart/>
-          </tbody>
-        </table>
-        <button>Proceed to checkout</button>
+
+        <button
+          type="button"
+          class="btn-style"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+        >
+          Proceed to Checkout
+        </button>
+      </div>
+
+      <div
+        class="modal"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 className="modal-title text-center"></h3>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+              ></button>
+            </div>
+            <div className="modal-body">
+              <p className="text-center">This information is kept secret</p>
+              <form>
+                <div className="mb-3">
+                  <label htmlFor="location" className="col-form-label">
+                    Delivery Location:
+                  </label>
+                  <input
+                    type="text"
+                    placeholder=""
+                    className="form-control"
+                    onChange={handleInputs}
+                    name="location"
+                    value={AddUserFormData.location}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="telephone" className="col-form-label">
+                    Telephone Number:
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="+254..."
+                    className="form-control"
+                    onChange={handleInputs}
+                    name="telephone_no"
+                    value={AddUserFormData.telephone_no}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="pay" className="col-form-label">
+                    Pay on Delivery:
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="yes/no"
+                    className="form-control"
+                    onChange={handleInputs}
+                    name="agree_to_pay"
+                    value={AddUserFormData.agree_to_pay}
+                  />
+                </div>
+                <p>Total : {sum + 500}</p>
+                <button
+                  type="button"
+                  class="btn-style"
+                  data-bs-dismiss="modal"
+                  onClick={handleSubmit}
+                >
+                  Order
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
-    
-
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Cart
+export default Cart;
+
+//  <div className="modal fade" tabindex="-1" id="order">
+//       <div className="modal-dialog">
+//         <div className="modal-content">
+//           <div className="modal-header">
+//             <h3 className="modal-title text-center"></h3>
+//             <button type="button"
+//             className="btn-close"
+//             data-bs-dismiss="modal"></button>
+//           </div>
+//           <div className="modal-body">
+//             <p className="text-center">This information is kept secret</p>
+//             <form onSubmit={handleSubmit} >
+//               <div className="mb-3">
+//                 <label htmlFor="location" className="col-form-label">Delivery Location:</label>
+//                 <input type="text" placeholder="" className="form-control" onChange={handleInputs} name="location" value={AddUserFormData.location}/>
+//               </div>
+//               <div className="mb-3">
+//                 <label htmlFor="telephone" className="col-form-label">Telephone Number:</label>
+//                 <input type="text" placeholder="+254..." className="form-control" onChange={handleInputs} name="telephone_no" value={AddUserFormData.telephone_no}/>
+//               </div>
+//               <div className="mb-3">
+//                 <label htmlFor="pay" className="col-form-label">Pay on Delivery:</label>
+//                 <input type="text" placeholder="yes/no" className="form-control" onChange={handleInputs} name="agree_to_pay" value={AddUserFormData.agree_to_pay}/>
+//               </div>
+//               <p>Total :  {sum+500}</p>
+//             </form>
+//           </div>
+//           <div className="modal-footer">
+//             <button type="button"
+//             className="btn btn-warning"
+//             data-bs-dismiss="modal">Close</button>
+//             <button  className="btn btn-warning" >Submit</button>
+//           </div>
+//         </div>
+//       </div>
+//     </div>

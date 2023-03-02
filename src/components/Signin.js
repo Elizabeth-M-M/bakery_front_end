@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const Signin = () => {
+const Signin = ({handleUser}) => {
+  const navigator= useNavigate()
   const [signInFormData, setFormData]=useState({
     email:'',
     password:''
@@ -16,14 +17,30 @@ const Signin = () => {
     })
 
   }
-  console.log(signInFormData);
+  // console.log(signInFormData);
   function handleSubmit(event){
+    console.log(signInFormData)
     event.preventDefault();
     // onAddData(signInFormData);
-    setFormData({
-    email:'',
-    password:''
-  });
+    fetch("http://localhost:9292/user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email:signInFormData.email,
+        password:signInFormData.password
+      }),
+    })
+      .then((r) => r.json())
+      .then((user) => {
+        handleUser(user);
+      });
+      setFormData({
+      email:'',
+      password:''
+    });
+    navigator('/')
   }
   return (
     <>
@@ -32,11 +49,11 @@ const Signin = () => {
       <div className="col-6 m-auto mt-5">
         <form className="row g-3" onSubmit={handleSubmit} >
           <div className="col-md-6">
-            <label htmlFor="email" className="form-label">Email</label>
+            <label htmlhtmlFor="email" className="form-label">Email</label>
             <input type="email" className="form-control" id="email" onChange={handleInputs} name="email" value={signInFormData.email}/>
           </div>
           <div className="col-md-6">
-            <label htmlFor="password" className="form-label">Password</label>
+            <label htmlhtmlFor="password" className="form-label">Password</label>
             <input type="password" className="form-control" id="password" onChange={handleInputs} name="password" value={signInFormData.password}/>
           </div>
           <Link to="/forgotpassword">Forgot password?</Link>
