@@ -49,7 +49,7 @@ const Signin = ({ handleUserId }) => {
 
   return (
     <>
-      <h2 className="text-center">Log in page</h2>
+      <h2 className="text-center">Log In</h2>
       <div className="container">
         <div className="col-6 m-auto mt-5">
           <form className="row g-3" onSubmit={handleSubmit}>
