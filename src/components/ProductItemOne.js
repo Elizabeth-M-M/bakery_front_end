@@ -6,7 +6,7 @@ const ProductItemOne = ({products, user, addCart}) => {
   let { productId } = useParams();
   // const{id, name, description, price, image}= products[productId-1]
   let chosen=products[productId-1]
-  console.log(user)
+  // console.log(user)
   function handleCartAdd(){
     if(user==''){
       navigator('/signin')

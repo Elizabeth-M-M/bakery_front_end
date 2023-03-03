@@ -92,6 +92,7 @@ fetch(`http://localhost:9292/user/${userId}`)
               handleCarts={setCarts}
               handleDeletedCart={deleteCart}
               addCart={onAddCart}
+              handleSetCarts={setCarts}
             />
           }
         >

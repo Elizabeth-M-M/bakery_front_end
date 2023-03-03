@@ -3,7 +3,7 @@ import CartItem from "./CartItem";
 
 import { useNavigate } from "react-router-dom";
 
-const Cart = ({ carts, user, handleCarts, handleDeletedCart, addCart }) => {
+const Cart = ({ carts, user, handleCarts, handleDeletedCart, addCart, handleSetCarts }) => {
   const navigator = useNavigate();
   const [sum, setSum] = useState(0);
   const [userId, setUserId] = useState(user.id);
@@ -13,6 +13,7 @@ const Cart = ({ carts, user, handleCarts, handleDeletedCart, addCart }) => {
     location: "",
   });
   // console.log(user);
+  const[order, setOrder]= useState(0)
 
   useEffect(() => {
     if (userId !== undefined) {
@@ -36,7 +37,7 @@ const Cart = ({ carts, user, handleCarts, handleDeletedCart, addCart }) => {
       [name]: value,
     });
   }
-  // console.log(user);
+  // console.log(orders);
 
   function handleSubmit() {
     // onAddData(AddUserFormData);
@@ -60,30 +61,40 @@ const Cart = ({ carts, user, handleCarts, handleDeletedCart, addCart }) => {
         telephone_no: "",
         location: "",
       });
+      
       Object.keys(carts).map((cartID) => {
         let cartId = carts[cartID].id;
-        handleDeletedCart(cartId);
+        
+        
         fetch(`http://localhost:9292/carts/${cartId}`, {
           method: "DELETE",
         });
+        
       });
+      
+      
+      handleSetCarts([]);
       navigator("/");
     } else {
+      
       Object.keys(carts).map((cartID) => {
         let cartId = carts[cartID].id;
-        handleDeletedCart(cartId);
+        
+        
         fetch(`http://localhost:9292/carts/${cartId}`, {
           method: "DELETE",
         });
+        
       });
+      
+      
+      handleSetCarts([]);
       navigator("/");
+  
+     
     }
-
-    // setSum(0)
-    // navigator("/");
-    // console.log(carts)
   }
-
+// console.log(order)
   const renderCarts = Object.keys(carts).map((cartID) => (
     <CartItem
       key={cartID}
