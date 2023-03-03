@@ -1,11 +1,10 @@
-import React, {useState} from 'react'
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Navbar = ({user, onSetUser, handleLogIn}) => {
-  
-  function handleLogOut(){
-    onSetUser('')
-    handleLogIn(false)
+const Navbar = ({ user, onSetUser, handleLogIn }) => {
+  function handleLogOut() {
+    onSetUser("");
+    handleLogIn(false);
   }
 
   return (
@@ -33,11 +32,11 @@ const Navbar = ({user, onSetUser, handleLogIn}) => {
             </a>
           )}
           {/* <a href="#"><Link to="/login">message</Link></a> */}
-          <a href="#">
+          <span>
             <Link to="/cart">
-              <i class="bi bi-cart4 h4"></i>
+              <i className="bi bi-cart4 h4"></i>
             </Link>
-          </a>
+          </span>
         </div>
         <div className="collapse navbar-collapse" id="navMenu">
           <ul className="navbar-nav ms-auto">
@@ -58,6 +57,6 @@ const Navbar = ({user, onSetUser, handleLogIn}) => {
       </div>
     </nav>
   );
-}
+};
 
-export default Navbar
+export default Navbar;

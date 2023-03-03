@@ -21,14 +21,16 @@ function App() {
   const [userId, setUserId] = useState(0);
   // const[sessionId, setSessionId]= useState(1)
   const [carts, setCarts] = useState([]);
-console.log(userId)
+// console.log(userId)
   useEffect(() => {
-    fetch(`http://localhost:9292/user/${userId}`)
-      .then((r) => r.json())
-      .then((data) => {
-        setUser(data);
-        setCarts(data.carts);
-      });
+if(userId!==0){
+fetch(`http://localhost:9292/user/${userId}`)
+  .then((r) => r.json())
+  .then((data) => {
+    setUser(data);
+    setCarts(data.carts);
+  });
+}    
   }, [userId]);
   useEffect(() => {
     if (user !== "") {
@@ -49,7 +51,7 @@ console.log(userId)
   //  console.log(id)
    setCarts(newOnes)
   }
-console.log(userId)
+// console.log(userId)
   return (
     <div className="bg-theme">
       <Navbar
@@ -61,7 +63,7 @@ console.log(userId)
       <Routes>
         <Route
           path="/"
-          element={<Home username={user.name} isLoggedIn={isLoggedIn} />}
+          element={<Home username={user.username} isLoggedIn={isLoggedIn} />}
         ></Route>
         <Route path="/signup" element={<Signup />}>
           Sign up

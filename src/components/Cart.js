@@ -12,7 +12,7 @@ const Cart = ({ carts, user, handleCarts, handleDeletedCart, addCart }) => {
     telephone_no: "",
     location: "",
   });
-  console.log(user)
+  // console.log(user);
 
   useEffect(() => {
     if (userId !== undefined) {
@@ -40,53 +40,48 @@ const Cart = ({ carts, user, handleCarts, handleDeletedCart, addCart }) => {
 
   function handleSubmit() {
     // onAddData(AddUserFormData);
-    if(user.location==null){
-fetch(`http://localhost:9292/user/${userId}`, {
-  method: "PATCH",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    agree_to_pay: AddUserFormData.agree_to_pay,
-    telephone_no: AddUserFormData.telephone_no,
-    location: AddUserFormData.location,
-  }),
-})
-  .then((r) => r.json())
-  .then((data) => console.log(data));
+    if (user.location == null) {
+      fetch(`http://localhost:9292/user/${userId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          agree_to_pay: AddUserFormData.agree_to_pay,
+          telephone_no: AddUserFormData.telephone_no,
+          location: AddUserFormData.location,
+        }),
+      })
+        .then((r) => r.json())
+        .then((data) => console.log(data));
 
-setFormData({
-  agree_to_pay: "",
-  telephone_no: "",
-  location: "",
-});
-Object.keys(carts).map((cartID) => {
-  let cartId = carts[cartID].id;
-  handleDeletedCart(cartId);
-  fetch(`http://localhost:9292/carts/${cartId}`, {
-    method: "DELETE",
-  });
-}); 
-navigator("/");
-    }else{
-Object.keys(carts).map((cartID) => {
-  let cartId = carts[cartID].id;
-  handleDeletedCart(cartId);
-  fetch(`http://localhost:9292/carts/${cartId}`, {
-    method: "DELETE",
-  });
-});  
-navigator('/')
+      setFormData({
+        agree_to_pay: "",
+        telephone_no: "",
+        location: "",
+      });
+      Object.keys(carts).map((cartID) => {
+        let cartId = carts[cartID].id;
+        handleDeletedCart(cartId);
+        fetch(`http://localhost:9292/carts/${cartId}`, {
+          method: "DELETE",
+        });
+      });
+      navigator("/");
+    } else {
+      Object.keys(carts).map((cartID) => {
+        let cartId = carts[cartID].id;
+        handleDeletedCart(cartId);
+        fetch(`http://localhost:9292/carts/${cartId}`, {
+          method: "DELETE",
+        });
+      });
+      navigator("/");
     }
 
-    
-    
-   
     // setSum(0)
     // navigator("/");
     // console.log(carts)
-
-
   }
 
   const renderCarts = Object.keys(carts).map((cartID) => (
@@ -128,7 +123,7 @@ navigator('/')
 
         <button
           type="button"
-          class="btn-style"
+          className="btn-style"
           data-bs-toggle="modal"
           data-bs-target="#exampleModal"
         >
@@ -137,15 +132,15 @@ navigator('/')
       </div>
 
       <div
-        class="modal"
+        className="modal"
         id="exampleModal"
-        tabindex="-1"
+        // tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
               <h3 className="modal-title text-center"></h3>
               <button
                 type="button"
@@ -203,7 +198,7 @@ navigator('/')
               )}
               <button
                 type="button"
-                class="btn-style"
+                className="btn-style"
                 data-bs-dismiss="modal"
                 onClick={handleSubmit}
               >

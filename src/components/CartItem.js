@@ -1,6 +1,6 @@
-import React from 'react'
+import React from "react";
 
-const CartItem = ({cartId, product, handleDeletedCart, user, addCart }) => {
+const CartItem = ({ cartId, product, handleDeletedCart, user, addCart }) => {
   const { id, name, description, price, image } = product;
 
   function handleCartAdd() {
@@ -21,7 +21,7 @@ const CartItem = ({cartId, product, handleDeletedCart, user, addCart }) => {
   }
 
   function handleDelete() {
-    handleDeletedCart(cartId)
+    handleDeletedCart(cartId);
     fetch(`http://localhost:9292/carts/${cartId}`, {
       method: "DELETE",
     })
@@ -36,9 +36,9 @@ const CartItem = ({cartId, product, handleDeletedCart, user, addCart }) => {
         </td>
         <td>{name}</td>
         <td className="d-flex">
-          <i class="bi bi-plus-square-fill" onClick={handleCartAdd}></i>
+          <i className="bi bi-plus-square-fill" onClick={handleCartAdd}></i>
           <p className="mx-2">1</p>
-          <i class="bi bi-dash-square-fill" onClick={handleDelete}></i>
+          <i className="bi bi-dash-square-fill" onClick={handleDelete}></i>
         </td>
         <td>{price}</td>
         <td onClick={handleDelete}>
@@ -69,4 +69,4 @@ const CartItem = ({cartId, product, handleDeletedCart, user, addCart }) => {
   );
 };
 
-export default CartItem
+export default CartItem;
