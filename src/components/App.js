@@ -23,14 +23,14 @@ function App() {
   const [carts, setCarts] = useState([]);
 // console.log(userId)
   useEffect(() => {
-if(userId!==0){
+// if(userId!==0){
 fetch(`http://localhost:9292/user/${userId}`)
   .then((r) => r.json())
   .then((data) => {
     setUser(data);
     setCarts(data.carts);
   });
-}    
+// }    
   }, [userId]);
   useEffect(() => {
     if (user !== "") {

@@ -1,4 +1,4 @@
-# Slice of Heaven Bakery Software
+# Slice of Heaven Bakery Front end
 
 #### Owner
 Program by Elizabeth Mwende Muthusi
