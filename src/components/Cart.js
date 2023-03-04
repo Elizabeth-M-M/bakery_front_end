@@ -79,6 +79,7 @@ const Cart = ({
 
       handleSetCarts([]);
       navigator("/");
+      alert("Your order has been recieved");
     } else {
       Object.keys(carts).map((cartID) => {
         let cartId = carts[cartID].id;
@@ -90,6 +91,7 @@ const Cart = ({
 
       handleSetCarts([]);
       navigator("/");
+      alert("Your order has been recieved");
     }
   }
   // console.log(order)
