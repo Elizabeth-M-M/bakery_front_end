@@ -16,23 +16,21 @@ import Cart from "./Cart";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [products, setProducts] = useState([]);
-  const [user, setUser] = useState("");
-  const [userId, setUserId] = useState(0);
-  // const[sessionId, setSessionId]= useState(1)
-  const [carts, setCarts] = useState([]);
-// console.log(userId)
+  const [products, setProducts] = useState([]); //From fetching in the db
+  const [user, setUser] = useState(""); //Set by fetch using userId from log in or sign up
+  const [userId, setUserId] = useState(0); //Set by userId from log in or sign up
+  const [carts, setCarts] = useState([]); //Set by fetch using userId from log in or sign up
+  // console.log(userId)
   useEffect(() => {
-// if(userId!==0){
-fetch(`http://localhost:9292/user/${userId}`)
-  .then((r) => r.json())
-  .then((data) => {
-    setUser(data);
-    console.log(data.carts)
-    setCarts(data.carts);
-  });
-// }    
+    fetch(`http://localhost:9292/user/${userId}`)
+      .then((r) => r.json())
+      .then((data) => {
+        setUser(data);
+        console.log(data.carts);
+        setCarts(data.carts);
+      });
   }, [userId]);
+
   useEffect(() => {
     if (user !== "") {
       setIsLoggedIn(true);
@@ -44,15 +42,17 @@ fetch(`http://localhost:9292/user/${userId}`)
       .then((r) => r.json())
       .then((data) => setProducts(data));
   }, []);
+  // From ProductItemOne or the Cart component itself
   function onAddCart(data) {
     setCarts([...carts, data]);
   }
-  function deleteCart(id){
-   let newOnes = carts.filter((cart) => cart.id !== id);
-   console.log(user)
-   setCarts(newOnes)
+  // From the cart component
+  function deleteCart(id) {
+    let newOnes = carts.filter((cart) => cart.id !== id);
+    console.log(user);
+    setCarts(newOnes);
   }
-// console.log(userId)
+  // console.log(userId)
   return (
     <div className="bg-theme">
       <Navbar
@@ -115,10 +115,6 @@ fetch(`http://localhost:9292/user/${userId}`)
         >
           Products
         </Route>
-        {/* <Route path="products" element={<Products/>}>
-        <Route path="/products/:productId" element={<ProductItemOne/>} />
-
-      </Route> */}
       </Routes>
       <Footer />
     </div>
