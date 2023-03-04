@@ -16,7 +16,7 @@ const Signin = ({ handleUserId }) => {
       type: "email",
       placeholder: "Email",
       errorMessage: "Invalid Email",
-      label: "Username",
+      label: "Email",
       // required: true,
     },
     {
@@ -56,13 +56,19 @@ const Signin = ({ handleUserId }) => {
       .then((r) => r.json())
       .then((user) => {
         // setSessionId(user.id)
-        handleUserId(user.id);
+        if(user==null){
+          alert("Please enter the registered email and password, or you can sign up again")
+        }else{
+          handleUserId(user.id);
+          navigator("/");
+        }
+        
       });
     setFormData({
       email: "",
       password: "",
     });
-    navigator("/");
+    
   }
  
   return (
@@ -86,7 +92,7 @@ const Signin = ({ handleUserId }) => {
               />
             ))}
 
-            <Link to="/forgotpassword">Forgot password?</Link>
+            {/* <Link to="/forgotpassword">Forgot password?</Link> */}
 
             <Link to="/signup">Don't have an account?</Link>
             <div className="col-12">

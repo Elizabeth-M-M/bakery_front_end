@@ -113,7 +113,7 @@ const [nowLocation, setNowLocation]=useState(user.location)
   function handleCloseClick() {
     navigator("/");
   }
-  console.log(user);
+ 
   return (
     <div className="container">
       <h4 className="my-5 text-center theme-color">Shopping Cart</h4>
