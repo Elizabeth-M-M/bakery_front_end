@@ -68,8 +68,8 @@ const Signin = ({ handleUserId }) => {
   }
 
   return (
-    <>
-      <h2 className="text-center">Log In</h2>
+    <div className="page-height text-center">
+      <h2 className=" theme-color">Log In</h2>
       <div className="container">
         <div className="col-6 m-auto mt-5">
           <form
@@ -87,14 +87,14 @@ const Signin = ({ handleUserId }) => {
             ))}
             <Link to="/signup">Don't have an account?</Link>
             <div className="col-12">
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn-style">
                 Sign in
               </button>
             </div>
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -66,7 +66,7 @@ function App() {
           path="/"
           element={<Home username={user.username} isLoggedIn={isLoggedIn} />}
         ></Route>
-        <Route path="/signup" element={<Signup />}>
+        <Route path="/signup" element={<Signup handleUser={setUserId} />}>
           Sign up
         </Route>
         <Route path="/forgotpassword" element={<ForgotPassword />}>

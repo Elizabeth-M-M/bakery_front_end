@@ -2,7 +2,7 @@ import React from 'react'
 
 const Team = () => {
   return (
-    <section className="p-5 text-center">
+    <section className="p-5 text-center page-height">
       <div className="container">
         <h1>Our Artisans</h1>
         <p className="py-sm-4 py-2">

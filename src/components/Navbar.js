@@ -24,7 +24,7 @@ const Navbar = ({ user, onSetUser, handleLogIn }) => {
         <div className="loginb">
           {user == "" ? (
             <a href="/">
-              <Link to="/login">Log In</Link>
+              <Link to="/signin">Log In</Link>
             </a>
           ) : (
             <a href="#" onClick={handleLogOut}>

@@ -46,7 +46,11 @@ const Cart = ({
   function handleSubmit(e) {
     e.preventDefault();
 // For a new user, their location variable would be null
-    if (user.location == null) {
+if(carts.length===0){
+  alert('Please add a cake to the cart')
+  navigator('/products')
+  return true
+}else if (user.location == null) {
       fetch(`http://localhost:9292/user/${userId}`, {
         method: "PATCH",
         headers: {
@@ -91,9 +95,9 @@ const Cart = ({
       addCart={addCart}
     />
   ));
-
+console.log(carts.length)
   return (
-    <div className="container">
+    <div className="container page-cart-height text-center">
       <h4 className="my-5 text-center theme-color">Shopping Cart</h4>
       <table className="table bg-content">
         <tbody>{renderCarts}</tbody>
@@ -102,29 +106,29 @@ const Cart = ({
         <table className="table ">
           <tbody>
             <tr>
-              <td>subtotal</td>
+              <td className="fw-bold">Subtotal</td>
               <td>{sum}</td>
             </tr>
             <tr>
-              <td>shipping</td>
+              <td>Shipping</td>
               <td>500</td>
             </tr>
             <tr>
-              <td>Total</td>
-              <td>{sum + 500}</td>
+              <td className="fw-bold">Total</td>
+              <td className="fw-bold">{sum + 500}</td>
             </tr>
           </tbody>
         </table>
         <button
           type="button"
-          className="btn-style"
+          className="btn-style mt-3"
           data-bs-toggle="modal"
           data-bs-target="#exampleModal"
         >
           Proceed to Checkout
         </button>
       </div>
-{/* Modal popup, whose content depends if the user has filled the location form before or not */}
+      {/* Modal popup, whose content depends if the user has filled the location form before or not */}
       <div
         className="modal"
         id="exampleModal"

@@ -10,7 +10,7 @@ const Home = ({ username, isLoggedIn }) => {
   // console.log(isLoggedIn)
   return (
     <>
-      <section className="pt-2 text-center text-sm-start container">
+      <section className="pt-2 text-center text-sm-start container page-height">
         <p className="theme-color">
           {isLoggedIn ? `Welcome ${username}` : null}
         </p>

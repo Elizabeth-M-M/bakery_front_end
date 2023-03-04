@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const Signup = ({ handleUser }) => {
+const Signup = ({handleUser}) => {
   const navigator = useNavigate();
   const [signUpFormData, setFormData] = useState({
     name: "",
@@ -44,8 +44,8 @@ const Signup = ({ handleUser }) => {
   }
 
   return (
-    <>
-      <h2 className="text-center">Sign Up</h2>
+    <div className="page-min-height text-center">
+      <h2 className=" theme-color">Sign Up</h2>
       <div className="container">
         <div className="col-6 m-auto mt-5">
           <form
@@ -126,14 +126,14 @@ const Signup = ({ handleUser }) => {
             </div>
             <Link to="/signin">Already have an account?</Link>
             <div className="col-12">
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn-style">
                 Sign Up
               </button>
             </div>
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
