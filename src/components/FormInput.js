@@ -1,7 +1,7 @@
-import React from 'react'
-
+import React from "react";
+// Trying a new form input format
 const FormInput = (props) => {
-  const{label, errorMessage, onChange, id, ...input}=props
+  const { label, errorMessage, onChange, id, ...input } = props;
   return (
     <div className="col-md-6">
       <label htmlFor={label} className="form-label">
@@ -17,6 +17,6 @@ const FormInput = (props) => {
       <div class="invalid-feedback">Please provide a valid city.</div>
     </div>
   );
-}
+};
 
-export default FormInput
+export default FormInput;

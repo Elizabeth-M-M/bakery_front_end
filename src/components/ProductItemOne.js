@@ -1,37 +1,34 @@
-import React from 'react'
-import {useParams, useNavigate } from 'react-router-dom';
+import React from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
-const ProductItemOne = ({products, user, addCart}) => {
-  const navigator= useNavigate()
+const ProductItemOne = ({ products, user, addCart }) => {
+  const navigator = useNavigate();
   let { productId } = useParams();
-  // const{id, name, description, price, image}= products[productId-1]
-  let chosen=products[productId-1]
+  let chosen = products[productId - 1];
   // console.log(user)
-  function handleCartAdd(){
-    if(user==''){
-      navigator('/signin')
-    }else{
-fetch("http://localhost:9292/carts", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    user_id: user.id,
-    product_id: chosen.id,
-  }),
-})
-  .then((r) => r.json())
-  .then((data) => {
-    addCart(data);
-    navigator("/cart");
-  });
+// post a cart entry to the database
+  function handleCartAdd() {
+    if (user == "") {
+      navigator("/signin");
+    } else {
+      fetch("http://localhost:9292/carts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: user.id,
+          product_id: chosen.id,
+        }),
+      })
+        .then((r) => r.json())
+        .then((data) => {
+          addCart(data);
+          navigator("/cart");
+        });
     }
-    
   }
 
-   
-  
   return (
     <div
       className="card mt-5 container"
@@ -64,21 +61,7 @@ fetch("http://localhost:9292/carts", {
         </div>
       </div>
     </div>
-
-    // <div className="col-sm-6 col-md-6 col-xs-6">
-    //     <div className="thumbnail">
-    //       <div className="col-sm-6 col-md-6 col-xs-12 image-container">
-    //         <img src={chosen.image} style={{"height":200,"marginLeft":-15}} />
-    //       </div>
-    //       <div className="col-sm-6 col-md-6 col-xs-12">
-    //         <h3>{chosen.name}</h3>
-    //         <p>{chosen.description}</p>
-    //         <h5>{chosen.price} Ksh</h5>
-    //         <button onClick={handleCartAdd}>Add to cart</button>
-    //       </div>
-    //     </div>
-    //   </div>
   );
-}
+};
 
-export default ProductItemOne
+export default ProductItemOne;

@@ -17,7 +17,6 @@ const Signin = ({ handleUserId }) => {
       placeholder: "Email",
       errorMessage: "Invalid Email",
       label: "Email",
-      // required: true,
     },
     {
       id: 2,
@@ -26,10 +25,9 @@ const Signin = ({ handleUserId }) => {
       placeholder: "Password",
       errorMessage: "Invalid Password",
       label: "Password",
-      // required: true,
     },
   ];
-  // const [sessionId, setSessionId] = useState(null);
+
   function handleInputs(event) {
     const name = event.target.name;
     const value = event.target.value;
@@ -38,11 +36,10 @@ const Signin = ({ handleUserId }) => {
       [name]: value,
     });
   }
-  // console.log(signInFormData);
+  // This fetch checks if email and password exists in the database. If not found, user is promted to re-enter the inputs or sign up. If found, a user can make orders
   function handleSubmit(event) {
-    // console.log(signInFormData)
     event.preventDefault();
-    // onAddData(signInFormData);
+
     fetch("http://localhost:9292/user", {
       method: "POST",
       headers: {
@@ -55,22 +52,21 @@ const Signin = ({ handleUserId }) => {
     })
       .then((r) => r.json())
       .then((user) => {
-        // setSessionId(user.id)
-        if(user==null){
-          alert("Please enter the registered email and password, or you can sign up again")
-        }else{
+        if (user == null) {
+          alert(
+            "Please enter the registered email and password, or you can sign up again"
+          );
+        } else {
           handleUserId(user.id);
           navigator("/");
         }
-        
       });
     setFormData({
       email: "",
       password: "",
     });
-    
   }
- 
+
   return (
     <>
       <h2 className="text-center">Log In</h2>
@@ -82,8 +78,6 @@ const Signin = ({ handleUserId }) => {
             novalidate
           >
             {inputs.map((input) => (
-              // console.log(input)
-
               <FormInput
                 key={input.id}
                 {...input}
@@ -91,9 +85,6 @@ const Signin = ({ handleUserId }) => {
                 onChange={handleInputs}
               />
             ))}
-
-            {/* <Link to="/forgotpassword">Forgot password?</Link> */}
-
             <Link to="/signup">Don't have an account?</Link>
             <div className="col-12">
               <button type="submit" className="btn btn-primary">

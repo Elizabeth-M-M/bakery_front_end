@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+// Not currently being used, to be incorporated
 const ForgotPassword = () => {
   const [forgotPasswordFormData, setFormData] = useState({
     email: "",

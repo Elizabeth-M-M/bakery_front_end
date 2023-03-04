@@ -18,11 +18,9 @@ const Signup = ({ handleUser }) => {
       [name]: value,
     });
   }
-  // console.log(signUpFormData);
+  // This POST request creates a user on the database and logs in a user to the program
   function handleSubmit(event) {
     event.preventDefault();
-    // onAddData(signUpFormData);
-
     fetch("http://localhost:9292/usersession", {
       method: "POST",
       headers: {

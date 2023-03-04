@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Navbar = ({ user, onSetUser, handleLogIn }) => {
+
   function handleLogOut() {
     onSetUser("");
     handleLogIn(false);
@@ -31,7 +32,6 @@ const Navbar = ({ user, onSetUser, handleLogIn }) => {
               Log out
             </a>
           )}
-          {/* <a href="#"><Link to="/login">message</Link></a> */}
           <span>
             <Link to="/cart">
               <i className="bi bi-cart4 h4"></i>
