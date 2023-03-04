@@ -46,11 +46,7 @@ const Cart = ({
   function handleSubmit(e) {
     e.preventDefault();
 // For a new user, their location variable would be null
-if(carts.length===0){
-  alert('Please add a cake to the cart')
-  navigator('/products')
-  return true
-}else if (user.location == null) {
+ if (user.location == null) {
       fetch(`http://localhost:9292/user/${userId}`, {
         method: "PATCH",
         headers: {
