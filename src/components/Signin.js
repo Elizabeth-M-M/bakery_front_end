@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import FormInput from "./FormInput";
 
 const Signin = ({ handleUserId }) => {
   const navigator = useNavigate();
@@ -7,6 +8,27 @@ const Signin = ({ handleUserId }) => {
     email: "",
     password: "",
   });
+
+  const inputs = [
+    {
+      id: 1,
+      name: "email",
+      type: "email",
+      placeholder: "Email",
+      errorMessage: "Invalid Email",
+      label: "Username",
+      // required: true,
+    },
+    {
+      id: 2,
+      name: "password",
+      type: "password",
+      placeholder: "Password",
+      errorMessage: "Invalid Password",
+      label: "Password",
+      // required: true,
+    },
+  ];
   // const [sessionId, setSessionId] = useState(null);
   function handleInputs(event) {
     const name = event.target.name;
@@ -42,43 +64,28 @@ const Signin = ({ handleUserId }) => {
     });
     navigator("/");
   }
-  // console.log(sessionId)
-  // useEffect(() => {
-  //         localStorage.setItem("sessionId", JSON.stringify(sessionId));
-  //       }, [sessionId]);
-
+ 
   return (
     <>
       <h2 className="text-center">Log In</h2>
       <div className="container">
         <div className="col-6 m-auto mt-5">
-          <form className="row g-3" onSubmit={handleSubmit}>
-            <div className="col-md-6">
-              <label htmlFor="email" className="form-label">
-                Email
-              </label>
-              <input
-                type="email"
-                className="form-control"
-                id="email"
+          <form
+            className="row g-3 needs-validation"
+            onSubmit={handleSubmit}
+            novalidate
+          >
+            {inputs.map((input) => (
+              // console.log(input)
+
+              <FormInput
+                key={input.id}
+                {...input}
+                value={signInFormData[input.name]}
                 onChange={handleInputs}
-                name="email"
-                value={signInFormData.email}
               />
-            </div>
-            <div className="col-md-6">
-              <label htmlFor="password" className="form-label">
-                Password
-              </label>
-              <input
-                type="password"
-                className="form-control"
-                id="password"
-                onChange={handleInputs}
-                name="password"
-                value={signInFormData.password}
-              />
-            </div>
+            ))}
+
             <Link to="/forgotpassword">Forgot password?</Link>
 
             <Link to="/signup">Don't have an account?</Link>

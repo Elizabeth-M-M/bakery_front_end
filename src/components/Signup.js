@@ -50,9 +50,13 @@ const Signup = ({ handleUser }) => {
       <h2 className="text-center">Sign Up</h2>
       <div className="container">
         <div className="col-6 m-auto mt-5">
-          <form className="row g-3" onSubmit={handleSubmit}>
+          <form
+            className="row g-3 needs-validation"
+            onSubmit={handleSubmit}
+            novalidate
+          >
             <div className="col-md-6">
-              <label htmlFor="username" className="form-label">
+              <label htmlFor="name" className="form-label">
                 Name
               </label>
               <input
@@ -62,6 +66,7 @@ const Signup = ({ handleUser }) => {
                 onChange={handleInputs}
                 name="name"
                 value={signUpFormData.name}
+                required
               />
             </div>
             <div className="col-md-6">
@@ -75,6 +80,7 @@ const Signup = ({ handleUser }) => {
                 onChange={handleInputs}
                 name="username"
                 value={signUpFormData.username}
+                required
               />
             </div>
             <div className="col-md-6">
@@ -88,6 +94,7 @@ const Signup = ({ handleUser }) => {
                 onChange={handleInputs}
                 name="email"
                 value={signUpFormData.email}
+                required
               />
             </div>
             <div className="col-md-6">
@@ -101,6 +108,7 @@ const Signup = ({ handleUser }) => {
                 onChange={handleInputs}
                 name="password"
                 value={signUpFormData.password}
+                required
               />
             </div>
             <div className="col-12">
@@ -115,6 +123,7 @@ const Signup = ({ handleUser }) => {
                 onChange={handleInputs}
                 name="secret_key"
                 value={signUpFormData.secret_key}
+                required
               />
             </div>
             <Link to="/signin">Already have an account?</Link>

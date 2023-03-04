@@ -92,6 +92,14 @@ background: rgb(246, 212, 167);
 .bg-content{
   background-color: bisque;
 }
+form span{
+  color: red;
+  font-size: 0.9rem;
+  display: none;
+}
+input:invalid ~ span{
+  display: block;
+}
 
 @keyframes App-logo-spin {
   from {

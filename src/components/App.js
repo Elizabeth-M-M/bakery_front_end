@@ -48,7 +48,7 @@ fetch(`http://localhost:9292/user/${userId}`)
   }
   function deleteCart(id){
    let newOnes = carts.filter((cart) => cart.id !== id);
-  //  console.log(id)
+   console.log(user)
    setCarts(newOnes)
   }
 // console.log(userId)
@@ -93,6 +93,7 @@ fetch(`http://localhost:9292/user/${userId}`)
               handleDeletedCart={deleteCart}
               addCart={onAddCart}
               handleSetCarts={setCarts}
+              handleSetUser={setUser}
             />
           }
         >

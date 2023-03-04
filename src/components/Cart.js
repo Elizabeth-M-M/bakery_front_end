@@ -10,18 +10,18 @@ const Cart = ({
   handleDeletedCart,
   addCart,
   handleSetCarts,
+  handleSetUser,
 }) => {
   const navigator = useNavigate();
   const [sum, setSum] = useState(0);
   const [userId, setUserId] = useState(user.id);
-  const [AddUserFormData, setFormData] = useState({
+  const [addUserFormData, setFormData] = useState({
     agree_to_pay: "",
     telephone_no: "",
     location: "",
   });
-  // console.log(user);
-  const [order, setOrder] = useState(0);
 
+const [nowLocation, setNowLocation]=useState(user.location)
   useEffect(() => {
     if (userId !== undefined) {
       fetch(`http://localhost:9292/carts/sum/${userId}`)
@@ -40,14 +40,15 @@ const Cart = ({
     const name = event.target.name;
     const value = event.target.value;
     setFormData({
-      ...AddUserFormData,
+      ...addUserFormData,
       [name]: value,
     });
   }
   // console.log(orders);
 
-  function handleSubmit() {
-    // onAddData(AddUserFormData);
+  function handleSubmit(e) {
+    e.preventDefault();
+    // onAddData(addUserFormData);
     if (user.location == null) {
       fetch(`http://localhost:9292/user/${userId}`, {
         method: "PATCH",
@@ -55,13 +56,13 @@ const Cart = ({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          agree_to_pay: AddUserFormData.agree_to_pay,
-          telephone_no: AddUserFormData.telephone_no,
-          location: AddUserFormData.location,
+          agree_to_pay: addUserFormData.agree_to_pay,
+          telephone_no: addUserFormData.telephone_no,
+          location: addUserFormData.location,
         }),
       })
         .then((r) => r.json())
-        .then((data) => console.log(data));
+        .then((data) => handleSetUser(data));
 
       setFormData({
         agree_to_pay: "",
@@ -69,17 +70,20 @@ const Cart = ({
         location: "",
       });
 
-      Object.keys(carts).map((cartID) => {
-        let cartId = carts[cartID].id;
+      // Object.keys(carts).map((cartID) => {
+      //   let cartId = carts[cartID].id;
 
-        fetch(`http://localhost:9292/carts/${cartId}`, {
-          method: "DELETE",
-        });
-      });
+      //   fetch(`http://localhost:9292/carts/${cartId}`, {
+      //     method: "DELETE",
+      //   });
+      // });
 
-      handleSetCarts([]);
-      navigator("/");
-      alert("Your order has been recieved");
+      // handleSetCarts([]);
+
+      // alert(
+      //   `Dear ${user.name}, your order has been recieved and information updated. Click on the close button`
+      // );
+      // navigator("/");
     } else {
       Object.keys(carts).map((cartID) => {
         let cartId = carts[cartID].id;
@@ -91,7 +95,7 @@ const Cart = ({
 
       handleSetCarts([]);
       navigator("/");
-      alert("Your order has been recieved");
+      alert("Your order has been recieved. We will contact you soon.");
     }
   }
   // console.log(order)
@@ -106,7 +110,10 @@ const Cart = ({
     />
   ));
   // console.log(sum)
-
+  function handleCloseClick() {
+    navigator("/");
+  }
+  console.log(user);
   return (
     <div className="container">
       <h4 className="my-5 text-center theme-color">Shopping Cart</h4>
@@ -160,61 +167,90 @@ const Cart = ({
               ></button>
             </div>
             <div className="modal-body">
-              <p className="text-center">We are happy to make you happy</p>
               {user.location == null ? (
-                <form>
-                  <div className="mb-3">
-                    <label htmlFor="location" className="col-form-label">
-                      Delivery Location:
-                    </label>
-                    <input
-                      type="text"
-                      placeholder=""
-                      className="form-control"
-                      onChange={handleInputs}
-                      name="location"
-                      value={AddUserFormData.location}
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label htmlFor="telephone" className="col-form-label">
-                      Telephone Number:
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="+254..."
-                      className="form-control"
-                      onChange={handleInputs}
-                      name="telephone_no"
-                      value={AddUserFormData.telephone_no}
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label htmlFor="pay" className="col-form-label">
-                      Pay on Delivery:
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="yes/no"
-                      className="form-control"
-                      onChange={handleInputs}
-                      name="agree_to_pay"
-                      value={AddUserFormData.agree_to_pay}
-                    />
-                  </div>
-                  <p>Total : {sum + 500}</p>
-                </form>
+                <div>
+                  <p className="text-center">We are happy to make you happy</p>
+                  <form
+                    className="row g-3 needs-validation"
+                    onSubmit={handleSubmit}
+                    novalidate
+                  >
+                    <div className="mb-3">
+                      <label htmlFor="location" className="col-form-label">
+                        Delivery Location:
+                      </label>
+                      <input
+                        type="text"
+                        id="location"
+                        placeholder=""
+                        className="form-control"
+                        onChange={handleInputs}
+                        name="location"
+                        value={addUserFormData.location}
+                        required
+                      />
+                    </div>
+                    <div className="mb-3">
+                      <label htmlFor="telephone" className="col-form-label">
+                        Telephone Number:
+                      </label>
+                      <input
+                        type="telephone"
+                        id="telephone"
+                        placeholder="+254..."
+                        className="form-control"
+                        onChange={handleInputs}
+                        name="telephone_no"
+                        value={addUserFormData.telephone_no}
+                        required
+                      />
+                    </div>
+                    <div className="mb-3">
+                      <label htmlFor="pay" className="col-form-label">
+                        Pay on Delivery:
+                      </label>
+                      <input
+                        type="text"
+                        id="pay"
+                        placeholder="yes/no"
+                        className="form-control"
+                        onChange={handleInputs}
+                        name="agree_to_pay"
+                        value={addUserFormData.agree_to_pay}
+                        required
+                      />
+                    </div>
+
+                    <div className="col-12">
+                      <button type="submit" className="btn-style me-4">
+                        Add Information
+                      </button>
+                      {/* <button
+                      type="button"
+                      data-bs-dismiss="modal"
+                      className="btn-style"
+                      onClick={handleCloseClick}
+                    >
+                      Close
+                    </button> */}
+                    </div>
+                  </form>
+                </div>
               ) : (
-                <p>Awesome, yummy snacks on your way. Finish your order.</p>
+                <div>
+                  <p>
+                    Our yummy slices will be on its way as soon as you click to order.
+                  </p>
+                  <button
+                    type="button"
+                    className="btn-style"
+                    data-bs-dismiss="modal"
+                    onClick={handleSubmit}
+                  >
+                    Order
+                  </button>
+                </div>
               )}
-              <button
-                type="button"
-                className="btn-style"
-                data-bs-dismiss="modal"
-                onClick={handleSubmit}
-              >
-                Order
-              </button>
             </div>
           </div>
         </div>
@@ -239,15 +275,15 @@ export default Cart;
 //             <form onSubmit={handleSubmit} >
 //               <div className="mb-3">
 //                 <label htmlFor="location" className="col-form-label">Delivery Location:</label>
-//                 <input type="text" placeholder="" className="form-control" onChange={handleInputs} name="location" value={AddUserFormData.location}/>
+//                 <input type="text" placeholder="" className="form-control" onChange={handleInputs} name="location" value={addUserFormData.location}/>
 //               </div>
 //               <div className="mb-3">
 //                 <label htmlFor="telephone" className="col-form-label">Telephone Number:</label>
-//                 <input type="text" placeholder="+254..." className="form-control" onChange={handleInputs} name="telephone_no" value={AddUserFormData.telephone_no}/>
+//                 <input type="text" placeholder="+254..." className="form-control" onChange={handleInputs} name="telephone_no" value={addUserFormData.telephone_no}/>
 //               </div>
 //               <div className="mb-3">
 //                 <label htmlFor="pay" className="col-form-label">Pay on Delivery:</label>
-//                 <input type="text" placeholder="yes/no" className="form-control" onChange={handleInputs} name="agree_to_pay" value={AddUserFormData.agree_to_pay}/>
+//                 <input type="text" placeholder="yes/no" className="form-control" onChange={handleInputs} name="agree_to_pay" value={addUserFormData.agree_to_pay}/>
 //               </div>
 //               <p>Total :  {sum+500}</p>
 //             </form>
