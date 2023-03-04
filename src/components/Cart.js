@@ -1,27 +1,25 @@
 import React, { useState, useEffect } from "react";
 import CartItem from "./CartItem";
-
 import { useNavigate } from "react-router-dom";
 
 const Cart = ({
   carts,
   user,
-  handleCarts,
   handleDeletedCart,
   addCart,
   handleSetCarts,
   handleSetUser,
 }) => {
   const navigator = useNavigate();
-  const [sum, setSum] = useState(0);
+  const [sum, setSum] = useState(0); //cart product sum
   const [userId, setUserId] = useState(user.id);
+  // If user never filled in the location form, they will be prompted to fill the form
   const [addUserFormData, setFormData] = useState({
     agree_to_pay: "",
     telephone_no: "",
     location: "",
   });
-
-const [nowLocation, setNowLocation]=useState(user.location)
+// If user is not logged in, the sum in the carts will not be set
   useEffect(() => {
     if (userId !== undefined) {
       fetch(`http://localhost:9292/carts/sum/${userId}`)
@@ -35,7 +33,7 @@ const [nowLocation, setNowLocation]=useState(user.location)
         });
     }
   }, [carts]);
-
+// The onChange values of form inputs is set using this method
   function handleInputs(event) {
     const name = event.target.name;
     const value = event.target.value;
@@ -44,11 +42,10 @@ const [nowLocation, setNowLocation]=useState(user.location)
       [name]: value,
     });
   }
-  // console.log(orders);
-
+// This method first updates the user details incase they were not filled before and posts them, or if filled, deletes the carts as indication of submission. Planning to post that data to an orders page instead of submission
   function handleSubmit(e) {
     e.preventDefault();
-    // onAddData(addUserFormData);
+// For a new user, their location variable would be null
     if (user.location == null) {
       fetch(`http://localhost:9292/user/${userId}`, {
         method: "PATCH",
@@ -69,22 +66,8 @@ const [nowLocation, setNowLocation]=useState(user.location)
         telephone_no: "",
         location: "",
       });
-
-      // Object.keys(carts).map((cartID) => {
-      //   let cartId = carts[cartID].id;
-
-      //   fetch(`http://localhost:9292/carts/${cartId}`, {
-      //     method: "DELETE",
-      //   });
-      // });
-
-      // handleSetCarts([]);
-
-      // alert(
-      //   `Dear ${user.name}, your order has been recieved and information updated. Click on the close button`
-      // );
-      // navigator("/");
     } else {
+      // Deleted the carts, but I'm planning to post to orders section 
       Object.keys(carts).map((cartID) => {
         let cartId = carts[cartID].id;
 
@@ -92,13 +75,12 @@ const [nowLocation, setNowLocation]=useState(user.location)
           method: "DELETE",
         });
       });
-
       handleSetCarts([]);
       navigator("/");
       alert("Your order has been recieved. We will contact you soon.");
     }
   }
-  // console.log(order)
+// Render carts in a table in the carts page
   const renderCarts = Object.keys(carts).map((cartID) => (
     <CartItem
       key={cartID}
@@ -109,15 +91,10 @@ const [nowLocation, setNowLocation]=useState(user.location)
       addCart={addCart}
     />
   ));
-  // console.log(sum)
-  function handleCloseClick() {
-    navigator("/");
-  }
- 
+
   return (
     <div className="container">
       <h4 className="my-5 text-center theme-color">Shopping Cart</h4>
-
       <table className="table bg-content">
         <tbody>{renderCarts}</tbody>
       </table>
@@ -138,7 +115,6 @@ const [nowLocation, setNowLocation]=useState(user.location)
             </tr>
           </tbody>
         </table>
-
         <button
           type="button"
           className="btn-style"
@@ -148,11 +124,10 @@ const [nowLocation, setNowLocation]=useState(user.location)
           Proceed to Checkout
         </button>
       </div>
-
+{/* Modal popup, whose content depends if the user has filled the location form before or not */}
       <div
         className="modal"
         id="exampleModal"
-        // tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
@@ -225,21 +200,15 @@ const [nowLocation, setNowLocation]=useState(user.location)
                       <button type="submit" className="btn-style me-4">
                         Add Information
                       </button>
-                      {/* <button
-                      type="button"
-                      data-bs-dismiss="modal"
-                      className="btn-style"
-                      onClick={handleCloseClick}
-                    >
-                      Close
-                    </button> */}
                     </div>
                   </form>
                 </div>
               ) : (
                 <div>
+                  <p>Your order is {sum}.Ksh</p>
                   <p>
-                    Our yummy slices will be on its way as soon as you click to order.
+                    Our yummy slices will be on its way as soon as you click to
+                    order.
                   </p>
                   <button
                     type="button"
@@ -260,40 +229,3 @@ const [nowLocation, setNowLocation]=useState(user.location)
 };
 
 export default Cart;
-
-//  <div className="modal fade" tabindex="-1" id="order">
-//       <div className="modal-dialog">
-//         <div className="modal-content">
-//           <div className="modal-header">
-//             <h3 className="modal-title text-center"></h3>
-//             <button type="button"
-//             className="btn-close"
-//             data-bs-dismiss="modal"></button>
-//           </div>
-//           <div className="modal-body">
-//             <p className="text-center">This information is kept secret</p>
-//             <form onSubmit={handleSubmit} >
-//               <div className="mb-3">
-//                 <label htmlFor="location" className="col-form-label">Delivery Location:</label>
-//                 <input type="text" placeholder="" className="form-control" onChange={handleInputs} name="location" value={addUserFormData.location}/>
-//               </div>
-//               <div className="mb-3">
-//                 <label htmlFor="telephone" className="col-form-label">Telephone Number:</label>
-//                 <input type="text" placeholder="+254..." className="form-control" onChange={handleInputs} name="telephone_no" value={addUserFormData.telephone_no}/>
-//               </div>
-//               <div className="mb-3">
-//                 <label htmlFor="pay" className="col-form-label">Pay on Delivery:</label>
-//                 <input type="text" placeholder="yes/no" className="form-control" onChange={handleInputs} name="agree_to_pay" value={addUserFormData.agree_to_pay}/>
-//               </div>
-//               <p>Total :  {sum+500}</p>
-//             </form>
-//           </div>
-//           <div className="modal-footer">
-//             <button type="button"
-//             className="btn btn-warning"
-//             data-bs-dismiss="modal">Close</button>
-//             <button  className="btn btn-warning" >Submit</button>
-//           </div>
-//         </div>
-//       </div>
-//     </div>

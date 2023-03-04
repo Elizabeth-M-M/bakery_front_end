@@ -28,6 +28,7 @@ fetch(`http://localhost:9292/user/${userId}`)
   .then((r) => r.json())
   .then((data) => {
     setUser(data);
+    console.log(data.carts)
     setCarts(data.carts);
   });
 // }    
