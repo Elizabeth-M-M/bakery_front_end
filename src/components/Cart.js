@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CartItem from "./CartItem";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Cart = ({
   carts,
@@ -9,6 +9,7 @@ const Cart = ({
   addCart,
   handleSetCarts,
   handleSetUser,
+  products
 }) => {
   const navigator = useNavigate();
   const [sum, setSum] = useState(0); //cart product sum
@@ -19,7 +20,8 @@ const Cart = ({
     telephone_no: "",
     location: "",
   });
-// If user is not logged in, the sum in the carts will not be set
+  const[ecarts, setEcarts]=useState([])
+  // If user is not logged in, the sum in the carts will not be set
   useEffect(() => {
     if (userId !== undefined) {
       fetch(`http://localhost:9292/carts/sum/${userId}`)
@@ -33,7 +35,7 @@ const Cart = ({
         });
     }
   }, [carts]);
-// The onChange values of form inputs is set using this method
+  // The onChange values of form inputs is set using this method
   function handleInputs(event) {
     const name = event.target.name;
     const value = event.target.value;
@@ -42,11 +44,11 @@ const Cart = ({
       [name]: value,
     });
   }
-// This method first updates the user details incase they were not filled before and posts them, or if filled, deletes the carts as indication of submission. Planning to post that data to an orders page instead of submission
+  // This method first updates the user details incase they were not filled before and posts them, or if filled, deletes the carts as indication of submission. Planning to post that data to an orders page instead of submission
   function handleSubmit(e) {
     e.preventDefault();
-// For a new user, their location variable would be null
- if (user.location == null) {
+    // For a new user, their location variable would be null
+    if (user.location == null) {
       fetch(`http://localhost:9292/user/${userId}`, {
         method: "PATCH",
         headers: {
@@ -67,21 +69,34 @@ const Cart = ({
         location: "",
       });
     } else {
-      // Deleted the carts, but I'm planning to post to orders section 
+      // Deleted the carts, but I'm planning to post to orders section
       Object.keys(carts).map((cartID) => {
         let cartId = carts[cartID].id;
 
-        fetch(`http://localhost:9292/carts/${cartId}`, {
-          method: "DELETE",
-        });
+        // fetch(`http://localhost:9292/carts/${cartId}`, {
+        //   method: "DELETE",
+        // });
+
+        fetch("http://localhost:9292/orders", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            cart_id: cartId,
+          }),
+        })
+          .then((r) => r.json())
+          .then((orders) => console.log(orders));
       });
       handleSetCarts([]);
       navigator("/");
       alert("Your order has been recieved. We will contact you soon.");
     }
   }
-// Render carts in a table in the carts page
-  const renderCarts = Object.keys(carts).map((cartID) => (
+  // Render carts in a table in the carts page
+  const renderCarts = Object.keys(carts).map((cartID) =>
+  (
     <CartItem
       key={cartID}
       cartId={carts[cartID].id}
@@ -90,11 +105,45 @@ const Cart = ({
       user={user}
       addCart={addCart}
     />
-  ));
-console.log(carts.length)
+  )
+  );
+  // console.log(carts.length)
+  // Render carts in a table in the carts page
+  // const renderCarts = Object.keys(products).map(productID=>{
+  //   Object.keys(ecarts).map(ecart=>{
+  //     if (products[productID].id == ecart) {
+  //       console.log(products[productID])
+  // //       (
+  // //   <CartItem
+  // //     key={productID}
+  // //     // cartId={products[productID].id}
+  // //     product={products[productID]}
+  // //     // handleDeletedCart={handleDeletedCart}
+  // //     // user={user}
+  // //     // addCart={addCart}
+  // //   />
+  // // )
+  //     }
+
+
+  //   })
+   
+
+  // }
+  // );
+  // useEffect(() => {
+  //   fetch(`http://localhost:9292/carts/${userId}`)
+  //     .then((r) => r.json())
+  //     .then((data) => {
+  //       setEcarts(data);
+        
+  //     });
+  // }, [])
+  // console.log(products)
   return (
     <div className="container page-cart-height text-center">
       <h4 className="my-5 text-center theme-color">Shopping Cart</h4>
+      <Link to="/orders">View your previous orders</Link>
       <table className="table bg-content">
         <tbody>{renderCarts}</tbody>
       </table>

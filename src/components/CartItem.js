@@ -25,8 +25,7 @@ const CartItem = ({ cartId, product, handleDeletedCart, user, addCart }) => {
     fetch(`http://localhost:9292/carts/${cartId}`, {
       method: "DELETE",
     })
-      .then((r) => r.json())
-      .then((deletedCart) => console.log(deletedCart));
+
   }
   return (
     <>

@@ -1,7 +1,7 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import React, { useState, useEffect, useRef } from "react";
-import Login from "./Login";
+
 import Signup from "./Signup";
 import Home from "./Home";
 import Navbar from "./Navbar";
@@ -13,6 +13,8 @@ import ForgotPassword from "./ForgotPassword";
 import Products from "./Products";
 import ProductItemOne from "./ProductItemOne";
 import Cart from "./Cart";
+import Order from "./Order";
+import TotalOrders from "./TotalOrders";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -26,7 +28,7 @@ function App() {
       .then((r) => r.json())
       .then((data) => {
         setUser(data);
-        console.log(data.carts);
+        // console.log(data.carts);
         setCarts(data.carts);
       });
   }, [userId]);
@@ -36,7 +38,8 @@ function App() {
       setIsLoggedIn(true);
     }
   }, [user]);
-
+// console.log(userId)
+// console.log(user)
   useEffect(() => {
     fetch("http://localhost:9292/products")
       .then((r) => r.json())
@@ -60,11 +63,12 @@ function App() {
         user={user}
         onSetUser={setUser}
         handleLogIn={setIsLoggedIn}
+        logged={isLoggedIn}
       />
       <Routes>
         <Route
           path="/"
-          element={<Home username={user.username} isLoggedIn={isLoggedIn} />}
+          element={<Home user={user} isLoggedIn={isLoggedIn} />}
         ></Route>
         <Route path="/signup" element={<Signup handleUser={setUserId} />}>
           Sign up
@@ -72,14 +76,21 @@ function App() {
         <Route path="/forgotpassword" element={<ForgotPassword />}>
           Forgot Password
         </Route>
-        <Route path="/signin" element={<Signin handleUserId={setUserId} />}>
+        <Route
+          path="/signin"
+          element={<Signin handleUserId={setUserId} handleUser={setUser} />}
+        >
           Sign in
         </Route>
-        <Route path="/login" element={<Login handleUser={setUserId} />}>
-          Log in
-        </Route>
+
         <Route path="/about" element={<About />}>
           About
+        </Route>
+        <Route path="/orders" element={<Order user={user} />}>
+          Order
+        </Route>
+        <Route path="/totalorders" element={<TotalOrders/>}>
+          total
         </Route>
         <Route path="/team" element={<Team />}>
           Team
@@ -95,6 +106,7 @@ function App() {
               addCart={onAddCart}
               handleSetCarts={setCarts}
               handleSetUser={setUser}
+              products={products}
             />
           }
         >

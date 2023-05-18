@@ -1,18 +1,25 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const Home = ({ username, isLoggedIn }) => {
+const Home = ({ user, isLoggedIn }) => {
   const navigator = useNavigate();
 
   function handleTaste() {
     navigator("/products");
   }
   // console.log(isLoggedIn)
+  // console.log(user.hasOwnProperty("username"));
+  // console.log(user.includes('username'))
+
   return (
     <>
       <section className="pt-2 text-center text-sm-start container page-height">
         <p className="theme-color">
-          {isLoggedIn ? `Welcome ${username}` : null}
+          {user.hasOwnProperty("username")
+            ? `Welcome ${user.username}`
+            : user!==''
+            ? `Welcome Staff`
+            : null}
         </p>
         <div>
           <div className="row">

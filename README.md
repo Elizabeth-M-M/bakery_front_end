@@ -64,6 +64,9 @@ The Team component is used to display information about the bakery shop's team, 
 The Navbar component is used to display the navigation menu at the top of each page on the bakery shop website. It includes links to the different sections of the website.
 
 ### Running the program
-1. Run `rake server` in the terminal of the backend of this program
+1. Run `rake server` in the terminal of the backend of this program. Fork and clone the backend using [this link](https://github.com/Elizabeth-M-M/bakery_back_end)
 2. When the server is running, run `npm start` in this terminal
-3. Enjoy
+3. As a user, you need to sign in to use the cart and to order.
+4. After ordering, you can log in as staff to check the order a customer made. Use these credentials; email:`sliceofheaven@ymail.com` and
+    password:`54321`
+
